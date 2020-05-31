@@ -28,26 +28,33 @@ public:
 	bool putCrediting(float NewCrediting) { //зачислить средства
 		if (NewCrediting < 0) {
 			cout << "Введите корректную сумму" << endl;
-			return; //false
+			return false;
 		}
 		balance += NewCrediting;
 		if (NewCrediting >= MaxCrediting) {
 			MaxCrediting = NewCrediting;
 		}
-		LastCrediting = NewCrediting; //return true
-		//cout << LastCrediting;
+		LastCrediting = NewCrediting;
+		return true;
 	}
 
 	int putWriteOff(float NewWriteOff) { //списать средства
 		if (NewWriteOff < 0) {
-			cout << "Введите корректную сумму" << endl; //обозначить случаи через 0 1 2
-			return;
+			cout << "Введите корректную сумму " << endl; //обозначить случаи через 0 1 2
+			return 0;
 		}
-		balance -= NewWriteOff;
-		if (NewWriteOff >= MaxWriteOff) {
-			MaxWriteOff = NewWriteOff;
+		else if (NewWriteOff > balance) {
+			cout << "Сумма, введенная Вами, превышает текущий баланс" << endl;
+			return 1;
 		}
-		LastWriteOff = NewWriteOff;
+		else {
+			balance -= NewWriteOff;
+			if (NewWriteOff >= MaxWriteOff) {
+				MaxWriteOff = NewWriteOff;
+			}
+			LastWriteOff = NewWriteOff;
+			return 2;
+		}
 	}
 
 
@@ -70,6 +77,7 @@ int main()
 	string surname;
 	float pass1, pass2;
 	bool result;
+	float cash = 0;
 	cout << "Введите фамилию, серию и номер паспорта: " << endl;
 	cin >> surname >> pass1 >> pass2;
 
@@ -86,20 +94,37 @@ int main()
 	while (cin >> action) {
 		if (action == 1) //пополнить счет
 		{
-			result = bank.putCrediting(1000.5); //проверить через if result
+			cout << "Введите сумму пополнения ";
+			cin >> cash;
+			result = bank.putCrediting(cash); //проверить через if result
 			float mybalance1;
-			mybalance1 = bank.getBalance();
-			cout << "Счет успешно пополнен" << endl;
-			cout << "Текущий баланс " << mybalance1 << endl;
+			if (result == 1) {
+				mybalance1 = bank.getBalance();
+				cout << "Счет успешно пополнен" << endl;
+				cout << "Текущий баланс " << mybalance1 << endl;
+			}
+			else {
+				cout << "Для повторной операции пополнения нажмите '1' или '6' для просмотра возможный действий с Вашим счетом" << endl;
+			}
 
 		}
 		else if (action == 2)
 		{
-			result = bank.putWriteOff(50.5); //списать средства
+			cout << "Введите сумму списания ";
+			cin >> cash;
+			result = bank.putWriteOff(cash); //списать средства
 			float mybalance2;
-			mybalance2 = bank.getBalance();
-			cout << "Списание успешно произведено" << endl;
-			cout << "Текущий баланс " << mybalance2 << endl;
+			if (result == 0) {
+				cout << "Для повторной операции списания нажмите '2' или '6' для просмотра возможный действий с Вашим счетом" << endl;
+			}
+			else if (result == 1) {
+				cout << "Для повторной операции списания нажмите '2' или '6' для просмотра возможный действий с Вашим счетом" << endl;
+			}
+			else {
+				mybalance2 = bank.getBalance();
+				cout << "Списание успешно произведено" << endl;
+				cout << "Текущий баланс " << mybalance2 << endl;
+			}
 		}
 		else if (action == 3)
 		{
