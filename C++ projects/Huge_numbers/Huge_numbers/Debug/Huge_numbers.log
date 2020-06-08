@@ -1,0 +1,7 @@
+﻿  Huge_numbers.cpp
+C:\Users\Asus\Documents\Git_projects\C++ projects\Huge_numbers\Huge_numbers\Huge_numbers.cpp(172,35): warning C4101: e: неиспользованная локальная переменная
+C:\Users\Asus\Documents\Git_projects\C++ projects\Huge_numbers\Huge_numbers\Huge_numbers.cpp(195,39): warning C4101: e: неиспользованная локальная переменная
+C:\Users\Asus\Documents\Git_projects\C++ projects\Huge_numbers\Huge_numbers\Huge_numbers.cpp(203,39): warning C4101: e: неиспользованная локальная переменная
+C:\Users\Asus\Documents\Git_projects\C++ projects\Huge_numbers\Huge_numbers\Huge_numbers.cpp(220,35): warning C4101: e: неиспользованная локальная переменная
+C:\Users\Asus\Documents\Git_projects\C++ projects\Huge_numbers\Huge_numbers\Huge_numbers.cpp(238,27): warning C4101: e: неиспользованная локальная переменная
+  Huge_numbers.vcxproj -> C:\Users\Asus\Documents\Git_projects\C++ projects\Huge_numbers\Debug\Huge_numbers.exe
