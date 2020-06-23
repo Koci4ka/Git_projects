@@ -1,2 +1,21 @@
 ﻿  Huge_numbers.cpp
-  Huge_numbers.vcxproj -> C:\Users\Asus\Documents\Git_projects\C++ projects\Huge_numbers\Debug\Huge_numbers.exe
+C:\Users\Asus\Documents\Git_projects\C++ projects\Huge_numbers\Huge_numbers\Huge_numbers.cpp(61,33): error C2676: бинарный "[": "HugeNumbers" не определяет этот оператор или преобразование к типу приемлемо к встроенному оператору
+C:\Users\Asus\Documents\Git_projects\C++ projects\Huge_numbers\Huge_numbers\Huge_numbers.cpp(142,38): error C2679: бинарный "=": не найден оператор, принимающий правый операнд типа "HugeNumbers" (или приемлемое преобразование отсутствует)
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.25.28610\include\xstring(2711,19): message : может быть "std::basic_string<char,std::char_traits<char>,std::allocator<char>> &std::basic_string<char,std::char_traits<char>,std::allocator<char>>::operator =(const _Elem)"
+          with
+          [
+              _Elem=char
+          ]
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.25.28610\include\xstring(2707,19): message : или       "std::basic_string<char,std::char_traits<char>,std::allocator<char>> &std::basic_string<char,std::char_traits<char>,std::allocator<char>>::operator =(const _Elem *const )"
+          with
+          [
+              _Elem=char
+          ]
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.25.28610\include\xstring(2692,19): message : или       "std::basic_string<char,std::char_traits<char>,std::allocator<char>> &std::basic_string<char,std::char_traits<char>,std::allocator<char>>::operator =(const std::basic_string<char,std::char_traits<char>,std::allocator<char>> &)"
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.25.28610\include\xstring(2591,19): message : или       "std::basic_string<char,std::char_traits<char>,std::allocator<char>> &std::basic_string<char,std::char_traits<char>,std::allocator<char>>::operator =(std::initializer_list<_Elem>)"
+          with
+          [
+              _Elem=char
+          ]
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.25.28610\include\xstring(2492,19): message : или       "std::basic_string<char,std::char_traits<char>,std::allocator<char>> &std::basic_string<char,std::char_traits<char>,std::allocator<char>>::operator =(std::basic_string<char,std::char_traits<char>,std::allocator<char>> &&) noexcept(<expr>)"
+C:\Users\Asus\Documents\Git_projects\C++ projects\Huge_numbers\Huge_numbers\Huge_numbers.cpp(142,38): message : при попытке сопоставить список аргументов "(std::string, HugeNumbers)"
