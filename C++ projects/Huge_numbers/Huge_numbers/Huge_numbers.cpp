@@ -8,7 +8,7 @@ class HugeNumbers {
 public:
 	HugeNumbers(string given_number = "0")
 	{
-		int size;
+		size = 0;
 		int string_size = given_number.size();
 		bool wasSign = true;
 		if (given_number[0] == '+') {
@@ -54,30 +54,36 @@ public:
 	знак числа - сделано 
 	сложение вычитание ---  HugeNumbers Add(HugeNumbers number_2)  
 			складываем намб1(наш класс) + намб2(его передали) = намб3 его возвращаем
-
 	*/
 
 	~HugeNumbers() {}
 
-	void showNumber(HugeNumbers given_number) const {
-	
-		for (int i = size; i > 0; i--) {
-			//....
+	void showNumber() {
+		if (!isPositive) {
+			cout << '-';
 		}
+		for (int i = (size-1); i >= 0; i--) {
+			cout << int (number_get[i]);
+		}
+		cout << endl;
 	}
 
-	bool getSign(string given_number) {
-		if (given_number[0] == '+') {
-			return true;
-		}
-		else if (given_number[0] == '-') {
-			return false;
-		}
-		else {
-			return true;
+	bool getSign() {
+		return isPositive;
+	}
 
+	int isGreaterABS(unsigned char* number_get2) { //определяем, какое число из 2х больше по модулю, если размеры одинак
+		for (int i = size; i >= 0; i--) {
+			if (number_get[i] > number_get2[i]) {
+				return 1;
+			}
+			else if (number_get2[i] > number_get[i]) {
+				return -1;
+			}
 		}
-	};
+		return 0;
+	}
+
 	HugeNumbers Add(HugeNumbers& given_number2) {
 		/*size
 		isPositive
@@ -94,48 +100,49 @@ public:
 		int number_of_digits2 = given_number2.number_of_digits;
 		unsigned char* number_get2 = given_number2.number_get; /**/
 
-		int size3; //макс размер из двух чисел +1 (3 число) 
+		int size3;
 		bool isPositive3;
-		int number_of_digits3;
-		unsigned char *number_get3;
+		int number_of_digits3; //макс размер из двух чисел +1 (3 число) 
+		unsigned char* number_get3;
 
-		if (size > size2) { //размер 3 числа 
-			size3 = size;
+
+		if (number_of_digits > number_of_digits2) { //размер 3 числа 
+			number_of_digits3 = (number_of_digits + 1);
 		}
-		else size3 = size2;
+		else number_of_digits3 = (number_of_digits2 + 1); //максимально возм size3
 
 		if (isPositive == isPositive2) { //знак 3 числа
 			isPositive3 = isPositive;
-		}
-		else {
-			if (size > size2) {
-				isPositive3 = isPositive;
-			}
-			else isPositive3 = isPositive2;
-		}
-
-		number_get3 = new unsigned char[size3];
-
-		if (isPositive != isPositive2) { //если знаки разные - вычитание
-										//если одинаковые - сложение
-			Subtraction(given_number2);
-		}
-		else {
+			// здесь складываем 2 массива 
+			size3 = ((number_of_digits3 + 1) / 2);
+			number_get3 = new unsigned char[size3];
+			// пробегаемся по массивам number_get и 2, в стоблик складываем
+			int a = 0;
 			for (int i = 0; i < size3; i++) {
-				//..
+				number_get[i] = number_get[i] + number_get2[i];
+				number_get[i + 1] = (number_get[i] / 10); //если сложение больше 100 (перенос)
+				number_get[i] = number_get[i] % 10; //убираем третий разряд, его сохранили 
 			}
 		}
-		return (given_number2); 
-	};
-
-	HugeNumbers Subtraction(HugeNumbers& given_number2) {   
-		//..
+		else {
+			int x = this->isGreaterABS(number_get2);
+			if (x == 1) {
+				isPositive3 = isPositive;
+				// this->Subtraction(given_number2);
+			}
+			else if (x == -1) {
+				isPositive3 = isPositive2;
+				//given_number2.Subtraction(*this);
+			}
+			else {
+				//можем выходить и вернуть hugenumbers = 0
+			}
+		}
+		return (given_number2);
 	}
-	
-	
 
 private: 
-
+	
 	int size;
 	bool isPositive;
 	unsigned char *number_get;
@@ -146,13 +153,13 @@ private:
 
 int main() {
 	string s;
-	HugeNumbers number;
 	setlocale(LC_ALL, "Russian");
 	int value = 0;
 
 	cout << "Введите число" << endl;
 	cin >> s;
 	cout << "======================================" << endl;
+	HugeNumbers number(s);
 	
 
 	cout << "Возможные операции: " << endl;
@@ -165,16 +172,16 @@ int main() {
 	cout << "======================================" << endl;
 	
 	while (cin >> value) {
-		if (value == 1) //ничего не выводит???
+		if (value == 1) 
 		{
 			cout << "Введенное число === ";
-			number.showNumber(s);
+			number.showNumber();
 		}
 		else if (value == 2) //done
 		{
 			bool result;
 			cout << "Знак числа === ";
-			result = number.getSign(s);
+			result = number.getSign();
 			if (result) {
 				cout << "positive" << endl;
 			}
@@ -216,7 +223,7 @@ int main() {
 		{
 			break;
 		}
-		cout << "====================================99==" << endl;
+		cout << "========================================" << endl;
 	}
 
 
