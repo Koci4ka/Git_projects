@@ -152,8 +152,64 @@ public:
 	}
 
 	HugeNumbers SubtractionABS(HugeNumbers& given_number2) {
+		int size2 = given_number2.size;
+		int number_of_digits2 = given_number2.number_of_digits;
+		unsigned char* number_get2 = given_number2.number_get;
 
-		return given_number2;
+		int size3;
+		int number_of_digits3; //макс размер из двух чисел +1 (3 число) 
+		unsigned char* number_get3;
+		unsigned char* temp_number_get3;
+
+		if (number_of_digits > number_of_digits2) { //размер 3 числа 
+			number_of_digits3 = (number_of_digits + 1);
+		}
+		else number_of_digits3 = (number_of_digits2 + 1); //максимально возм size3
+
+		size3 = ((number_of_digits3 + 1) / 2);
+		number_get3 = new unsigned char[size3];
+		for (int i = 0; i < size3; i++) {
+			number_get3[i] = 0;
+		}
+		unsigned char a = 0;
+		unsigned char b = 0;
+	for (int i = 0; i < (size3-2); i++) {
+			a = 0;
+			b = 0;
+			if (i < size) {
+				a = number_get[i];
+			}
+			if (i < size2) {
+				b = number_get2[i];
+			}
+			if (a < b) {
+				if (number_get3[i + 1] != 0)
+				{
+					number_get3[i + 1] -= 1;
+					number_get3[i] = a + 100 - b;
+				}
+				else {
+					number_get3[i + 2] -= 1;
+					number_get3[i + 1] = 9;
+					number_get3[i] = a + 100 - b;
+				}
+			}
+		}
+	if (number_get3[size3 - 2] == 0) {
+		temp_number_get3 = new unsigned char[size3 - 2];
+		for (int i = 0; i < size3 - 1; i++) {
+			temp_number_get3[i] = number_get3[i];
+		}
+		delete[] number_get3;
+		number_get3 = temp_number_get3;
+		size3 -= 1;
+	}
+	if (number_get3[size3 - 2] >= 10) {
+		number_of_digits3 = 2 * size3;
+	}
+	else number_of_digits3 = 2 * size3 - 1;
+	return HugeNumbers(size3, true, number_get3, number_of_digits3);
+
 	}
 
 	HugeNumbers AddABS(HugeNumbers& given_number2) {
