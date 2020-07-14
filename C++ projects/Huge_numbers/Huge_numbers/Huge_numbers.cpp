@@ -1,7 +1,5 @@
 #include <iostream>
 #include <string>
-#include <locale>
-#include <windows.h>
 using namespace std;
 
 class HugeNumbers {
@@ -61,13 +59,6 @@ public:
 		}
 	}
 
-	
-	/*ввывести число - пробовала, метод ничего не выводил 
-	знак числа - сделано 
-	сложение вычитание ---  HugeNumbers Add(HugeNumbers number_2)  
-			складываем намб1(наш класс) + намб2(его передали) = намб3 его возвращаем
-	*/
-
 	~HugeNumbers() {
 		delete[] number_get;
 	}
@@ -104,13 +95,10 @@ public:
 		isPositive
 		number_of_digits
 		number_get - 1ое число
-
-
-		сравнение по модулю двух чисел(размер массива, значения)
+		срaвнение по модулю двух чисел(размер массива, значения)
 		рассмотреть случаи сложения, вычитания
-
 		*/
-	
+
 		bool isPositive2 = given_number2.isPositive;
 		int number_of_digits2 = given_number2.number_of_digits;
 
@@ -145,35 +133,31 @@ public:
 				return result;
 			}
 			else {
-				//можем выходить и вернуть hugenumbers = 0
 				return HugeNumbers();
 			}
 		}
 	}
 
-	HugeNumbers SubtractionABS(HugeNumbers& given_number2) {
+	HugeNumbers SubtractionABS(HugeNumbers& given_number2) { // 1 > 2
 		int size2 = given_number2.size;
 		int number_of_digits2 = given_number2.number_of_digits;
 		unsigned char* number_get2 = given_number2.number_get;
 
 		int size3;
-		int number_of_digits3; //макс размер из двух чисел +1 (3 число) 
+		int number_of_digits3; //равен 1ому числу (3 число) 
 		unsigned char* number_get3;
 		unsigned char* temp_number_get3;
 
-		if (number_of_digits > number_of_digits2) { //размер 3 числа 
-			number_of_digits3 = (number_of_digits + 1);
-		}
-		else number_of_digits3 = (number_of_digits2 + 1); //максимально возм size3
+		number_of_digits3 = number_of_digits; //размер 3 числа
 
-		size3 = ((number_of_digits3 + 1) / 2);
+		size3 = ((number_of_digits3 + 1) / 2); //максимально возм size3
 		number_get3 = new unsigned char[size3];
 		for (int i = 0; i < size3; i++) {
 			number_get3[i] = 0;
 		}
 		unsigned char a = 0;
 		unsigned char b = 0;
-	for (int i = 0; i < (size3-2); i++) {
+		for (int i = 0; i < size3; i++) {
 			a = 0;
 			b = 0;
 			if (i < size) {
@@ -182,20 +166,22 @@ public:
 			if (i < size2) {
 				b = number_get2[i];
 			}
-			if (a < b) {
-				if (number_get3[i + 1] != 0)
-				{
-					number_get3[i + 1] -= 1;
-					number_get3[i] = a + 100 - b;
-				}
-				else {
-					number_get3[i + 2] -= 1;
-					number_get3[i + 1] = 9;
-					number_get3[i] = a + 100 - b;
-				}
+			if (a > b) {
+				number_get3[i] = a - b;
+			}
+			else if (number_get[i + 1] != 0) {
+				number_get[i + 1] -= 1;
+				number_get3[i] = a + 100 - b;
+			}
+			else if (number_get[i + 1] == 0)
+			{
+				number_get[i + 2] -= 1;
+				number_get[i + 1] = 99;
+				number_get3[i] = a + 100 - b;
 			}
 		}
-	if (number_get3[size3 - 2] == 0) {
+
+	if (number_get3[size3] == 0) {
 		temp_number_get3 = new unsigned char[size3 - 2];
 		for (int i = 0; i < size3 - 1; i++) {
 			temp_number_get3[i] = number_get3[i];
@@ -278,7 +264,6 @@ private:
 
 int main() {
 	string s;
-	setlocale(LC_ALL, "Russian");
 	int value = 0;
 
 	cout << "Enter a number" << endl;
@@ -289,9 +274,9 @@ int main() {
 
 	cout << "Possible operations: " << endl;
 	cout << "1 - Output a number to the console " << endl;
-	cout << "2 - Define the sign of a number " << endl;
+	cout << "2 - Define the sign of the number " << endl;
 	cout << "3 - Output the sum of two numbers " << endl;
-	cout << "4 - Output the difference between two numbers " << endl;
+	cout << "4 - Output the subtraction two numbers " << endl;
 	cout << "9 - View operations " << endl;
 	cout << "0 - Exit the program " << endl;
 	cout << "======================================" << endl;
@@ -318,28 +303,28 @@ int main() {
 		else if (value == 3) {
 			string number1; //в методах суммы и вычитания будут новые числа, которые пользователь вводит 
 			string number2;
-			cout << "Enter the first term " << endl;
+			cout << "Enter the first number " << endl;
 			cin >> number1;
-			cout << "Enter the second term " << endl;
+			cout << "Enter the second number " << endl;
 			cin >> number2;
 			HugeNumbers huge1(number1);
 			HugeNumbers huge2(number2);
 			cout << "Sum of two numbers === ";
-			HugeNumbers huge3 = huge1.Add(huge2);
+			HugeNumbers huge3 = huge1.SubtractionABS(huge2);
 			huge3.showNumber();
 		}
 
 		else if (value == 4) {
-
+		
 		}
 
 		else if (value == 9)
 		{
 			cout << "Possible operations: " << endl;
 			cout << "1 - Output a number to the console " << endl;
-			cout << "2 - Define the sign of a number " << endl;
+			cout << "2 - Define the sign of the number " << endl;
 			cout << "3 - Output the sum of two numbers " << endl;
-			cout << "4 - Output the difference between two numbers " << endl;
+			cout << "4 - Output the subtraction two numbers " << endl;
 			cout << "9 - View operations " << endl;
 			cout << "0 - Exit the program " << endl;
 			cout << "======================================" << endl;
