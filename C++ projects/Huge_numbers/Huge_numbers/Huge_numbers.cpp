@@ -108,18 +108,46 @@ public:
 		return isPositive;
 	}
 
-	int isGreaterABS(HugeNumbers& given_number2) { //определяем, какое число из 2х больше по модулю, если размеры одинак
+	int isGreater(HugeNumbers& given_number2) { /*1 - первое > .
+												-1 - первое < .
+												 0 - числа  = */
+		bool isPositive2 = given_number2.isPositive;
+		int size2 = given_number2.size;
+		int number_of_digits2 = given_number2.number_of_digits;
 		unsigned char* number_get2 = given_number2.number_get;
-		for (int i = (size - 1); i >= 0; i--) {
-			if (number_get[i] > number_get2[i]) {
+
+		if (isPositive && (!isPositive2 || (number_of_digits > number_of_digits2))) { //первое число строго больше
+			return 1; //первое больше
+		}
+		else if (isPositive2 && (!isPositive || (number_of_digits2 > number_of_digits))) { // первое число строго меньше
+			return -1; //первое меньше
+		}
+		else if ((isPositive == isPositive) && (number_of_digits != number_of_digits2)) { /*знак одинаковый
+																						  сравниваем кол-во цифр*/
+			if (number_of_digits > number_of_digits2) {
 				return 1;
 			}
-			else if (number_get2[i] > number_get[i]) {
-				return -1;
+			else return -1;
+		}
+
+		else if ((isPositive == isPositive2) && (number_of_digits == number_of_digits2)) { /*всё совпадает
+																						   сравниваем цифры*/
+			for (int i = (size - 1); i >= 0; i--) {
+				if (number_get[i] == number_get2[i]) {
+					continue;
+				}
+				else if (number_get[i] > number_get2[i]) {
+					return 1; // первое больше 
+				}
+				else if (number_get[i] < number_get2[i]) {
+					return -1; // первое меньше 
+				}
+				else return 0;
 			}
 		}
 		return 0;
 	}
+
 
 	HugeNumbers Add(HugeNumbers& given_number2) {
 		/*size
@@ -149,7 +177,7 @@ public:
 			return result;
 		}
 		else {
-			int x = this->isGreaterABS(given_number2);
+			int x = this->isGreater(given_number2);
 			if (x == 1) {
 				isPositive3 = isPositive;
 				HugeNumbers result = this->SubtractionABS(given_number2); // вычитание по модулю (первое больше)
@@ -186,7 +214,7 @@ public:
 		for (int i = 0; i < size3; i++) {
 			number_get3[i] = 0;
 		}
-	
+
 		unsigned char a = 0;
 		unsigned char b = 0;
 		bool c = false;
@@ -247,7 +275,7 @@ public:
 				number_of_digits3 = 2 * (size3 - 1) + 1;
 			}
 			else number_of_digits3 = 2 * size3;
-			}
+		}
 		return HugeNumbers(size3, true, number_get3, number_of_digits3);
 
 	}
@@ -329,7 +357,7 @@ public:
 			return result;
 		}
 		else {
-			int x = this->isGreaterABS(given_number2); 
+			int x = this->isGreater(given_number2);
 			if (x == 1) {
 				isPositive3 = isPositive;
 				HugeNumbers result = this->SubtractionABS(given_number2); // вычитание по модулю (первое больше)
@@ -349,47 +377,6 @@ public:
 		}
 	}
 
-	int iSGreater(HugeNumbers& given_number2) { /*1 - первое > .
-											    -1 - первое < .
-												 0 - числа  = */
-		bool isPositive2 = given_number2.isPositive;
-		int size2 = given_number2.size;
-		int number_of_digits2 = given_number2.number_of_digits;
-		unsigned char* number_get2 = given_number2.number_get;
-
-		if (isPositive && (!isPositive2 || (number_of_digits > number_of_digits2))) { //первое число строго больше
-			return 1; //первое больше
-		}
-		else if (isPositive2 && (!isPositive || (number_of_digits2 > number_of_digits))) { // первое число строго меньше
-			return -1; //первое меньше
-		}
-		else if ((isPositive == isPositive) && (number_of_digits != number_of_digits2)) { /*знак одинаковый 
-																						  сравниваем кол-во цифр*/
-			if (number_of_digits > number_of_digits2) {
-				return 1;
-			}
-			else return -1;
-		}
-
-		else if ((isPositive == isPositive2) && (number_of_digits == number_of_digits2)) { /*всё совпадает
-																						   сравниваем цифры*/
-			for (int i = (size - 1); i >= 0; i--) {
-				if (number_get[i] == number_get2[i]) {
-					continue;
-				}
-				else if (number_get[i] > number_get2[i]) {
-					return 1; // первое больше 
-				}
-				else if (number_get[i] < number_get2[i]) {
-					return -1; // первое меньше 
-				}
-				return 0;
-			} 
-		}
-		
-
-	}
-
 
 private:
 
@@ -398,8 +385,6 @@ private:
 	unsigned char* number_get;
 	int number_of_digits;
 };
-
-
 
 int main() {
 	string s;
@@ -416,6 +401,7 @@ int main() {
 	cout << "2 - Define the sign of the number " << endl;
 	cout << "3 - Output the sum of two numbers " << endl;
 	cout << "4 - Output the subtraction two numbers " << endl;
+	cout << "5 - Compare the numbers " << endl;
 	cout << "9 - View operations " << endl;
 	cout << "0 - Exit the program " << endl;
 	cout << "======================================" << endl;
@@ -423,10 +409,10 @@ int main() {
 	while (cin >> value) {
 		if (value == 1)
 		{
-			cout << "The number entered === "; 
+			cout << "The number entered - ";
 			number.showNumber();
 		}
-		else if (value == 2) 
+		else if (value == 2)
 		{
 			bool result;
 			cout << "Number sign === ";
@@ -440,7 +426,7 @@ int main() {
 
 		}
 		else if (value == 3) {
-			string number1; //в методах суммы и вычитания будут новые числа, которые пользователь вводит 
+			string number1; //в методах суммы, вычитания и сранения будут новые числа, которые пользователь вводит 
 			string number2;
 			cout << "Enter the first number " << endl;
 			cin >> number1;
@@ -448,12 +434,41 @@ int main() {
 			cin >> number2;
 			HugeNumbers huge1(number1);
 			HugeNumbers huge2(number2);
-			cout << "Sum of two numbers === ";
+			cout << "Sum of two numbers = ";
 			HugeNumbers huge3 = huge1.Add(huge2);
 			huge3.showNumber();
 		}
-
 		else if (value == 4) {
+			string number1;
+			string number2;
+			cout << "Enter the first number " << endl;
+			cin >> number1;
+			cout << "Enter the second number " << endl;
+			cin >> number2;
+			HugeNumbers huge1(number1);
+			HugeNumbers huge2(number2);
+			cout << "Sub of two numbers = ";
+			HugeNumbers huge3 = huge1.Subtraction(huge2);
+			huge3.showNumber();
+		}
+		else if (value == 5) {
+			string number1;
+			string number2;
+			cout << "Enter the first number " << endl;
+			cin >> number1;
+			cout << "Enter the second number " << endl;
+			cin >> number2;
+			HugeNumbers huge1(number1);
+			HugeNumbers huge2(number2);
+			cout << "Result - ";
+			int x = huge1.isGreater(huge2);
+			if (x == 1) {
+				cout << "The first number is greater" << endl;
+			}
+			else if (x == -1) {
+				cout << "The second number is greater" << endl;
+			}
+			else cout << "The numbers are equal" << endl;
 
 		}
 
@@ -464,6 +479,7 @@ int main() {
 			cout << "2 - Define the sign of the number " << endl;
 			cout << "3 - Output the sum of two numbers " << endl;
 			cout << "4 - Output the subtraction two numbers " << endl;
+			cout << "5 - Compare the numbers " << endl;
 			cout << "9 - View operations " << endl;
 			cout << "0 - Exit the program " << endl;
 			cout << "======================================" << endl;
@@ -475,8 +491,5 @@ int main() {
 		}
 		cout << "========================================" << endl;
 	}
-
-
-
 	return 0;
 }
