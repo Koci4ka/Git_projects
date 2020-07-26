@@ -1,2 +1,3 @@
 ﻿  Huge_numbers.cpp
+C:\Users\Asus\Documents\Git_projects\C++ projects\Huge_numbers\Huge_numbers\Huge_numbers.cpp(190,1): warning C4305: return: усечение из "int" в "bool"
   Huge_numbers.vcxproj -> C:\Users\Asus\Documents\Git_projects\C++ projects\Huge_numbers\Debug\Huge_numbers.exe
