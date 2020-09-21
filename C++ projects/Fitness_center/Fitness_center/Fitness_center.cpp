@@ -1,3 +1,8 @@
+//
+//  lab5_3.cpp
+//  Lab5
+//
+
 #include <iostream>
 #include <stdlib.h>
 #include <algorithm>               // max(x,y)
@@ -161,7 +166,7 @@ public:
 	}   // Set the key
 	void setMaxClients(int newMax) { max_clients = newMax; }
 
-	int getKey() const
+	char getKey() const
 	{
 		return number;
 	}     // Returns the key
@@ -200,7 +205,7 @@ int FitnessTree::countOfLeftHelper(BSTree::BSTreeNode* p) const
 {
 	int result;   // Result returned
 	if (p == 0)
-		return 0;
+		result = 0;
 	else
 		result = countOfLeftHelper(p->left) + countOfLeftHelper(p->right);
 	if (p->left != 0 && p->right == 0)
@@ -222,7 +227,7 @@ int FitnessTree::printMaxClientsEvenHelper(BSTree::BSTreeNode* p, int level) con
 	{
 		result = 0;
 	}
-	else if (level % 2 == 0)
+	else if (level % 2 != 0)
 	{
 		result = max(printMaxClientsEvenHelper(p->left, level + 1), printMaxClientsEvenHelper(p->right, level + 1));
 		if (p->dataItem.getMaxClients() > result)

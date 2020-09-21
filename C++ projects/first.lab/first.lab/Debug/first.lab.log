@@ -1,0 +1,18 @@
+﻿  astar.cpp
+C:\Users\Asus\Documents\Git_projects\C++ projects\first.lab\first.lab\astar.cpp(87,31): warning C4244: =: преобразование "int" в "float", возможна потеря данных
+C:\Users\Asus\Documents\Git_projects\C++ projects\first.lab\first.lab\astar.cpp(90,76): warning C4244: =: преобразование "double" в "float", возможна потеря данных
+  bfs.cpp
+  dijkstra.cpp
+  graph.cpp
+C:\Users\Asus\Documents\Git_projects\C++ projects\first.lab\first.lab\graph.cpp(97,27): warning C4018: <: несоответствие типов со знаком и без знака
+C:\Users\Asus\Documents\Git_projects\C++ projects\first.lab\first.lab\graph.cpp(99,31): warning C4018: <: несоответствие типов со знаком и без знака
+C:\Users\Asus\Documents\Git_projects\C++ projects\first.lab\first.lab\graph.cpp(107,27): warning C4018: <: несоответствие типов со знаком и без знака
+C:\Users\Asus\Documents\Git_projects\C++ projects\first.lab\first.lab\graph.cpp(176,24): warning C4244: return: преобразование "double" в "float", возможна потеря данных
+C:\Users\Asus\Documents\Git_projects\C++ projects\first.lab\first.lab\graph.cpp(191,23): warning C4018: <: несоответствие типов со знаком и без знака
+C:\Users\Asus\Documents\Git_projects\C++ projects\first.lab\first.lab\graph.cpp(199,22): warning C4018: >: несоответствие типов со знаком и без знака
+  input.cpp
+  main.cpp
+  planner.cpp
+  tinyxml2.cpp
+  Создание кода...
+  first.lab.vcxproj -> C:\Users\Asus\Documents\Git_projects\C++ projects\first.lab\Debug\first.lab.exe
