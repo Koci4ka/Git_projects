@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+	<algorithm type="dijkstra"/> <!-- Возможные значения 1)dijkstra 2)bfs 3)astar-->
+	<task start.id="A" goal.id="L"/>
+	<graph type="general">
+		<node id="A"/>
+		<node id="B"/>
+		<node id="C"/>
+		<node id="D"/>
+		<node id="E"/>
+		<node id="F"/>
+		<node id="G"/>
+		<node id="H"/>
+		<node id="I"/>
+		<node id="J"/>
+		<node id="K"/>
+		<node id="L"/>
+		<node id="M"/>
+		<node id="N"/>
+		<edge source="A" target="B" weight="3"/>
+		<edge source="B" target="A" weight="3"/>
+		<edge source="A" target="C" weight="5"/>
+		<edge source="C" target="A" weight="5"/>
+		<edge source="A" target="D" weight="4"/>
+		<edge source="D" target="A" weight="4"/>
+		<edge source="B" target="E" weight="5"/>
+		<edge source="E" target="B" weight="5"/>
+		<edge source="C" target="F" weight="3"/>
+		<edge source="F" target="C" weight="3"/>
+		<edge source="D" target="F" weight="4"/>
+		<edge source="F" target="D" weight="4"/>
+		<edge source="D" target="E" weight="3"/>
+		<edge source="E" target="D" weight="3"/>
+		<edge source="D" target="G" weight="6"/>
+		<edge source="G" target="D" weight="6"/>
+		<edge source="E" target="G" weight="4"/>
+		<edge source="G" target="E" weight="4"/>
+		<edge source="E" target="J" weight="7"/>
+		<edge source="J" target="E" weight="7"/>
+		<edge source="F" target="G" weight="5"/>
+		<edge source="G" target="F" weight="5"/>
+		<edge source="F" target="H" weight="6"/>
+		<edge source="H" target="F" weight="6"/>
+		<edge source="G" target="H" weight="7"/>
+		<edge source="H" target="G" weight="7"/>
+		<edge source="G" target="J" weight="4"/>
+		<edge source="J" target="G" weight="4"/>
+		<edge source="H" target="I" weight="4"/>
+		<edge source="I" target="H" weight="4"/>
+		<edge source="I" target="K" weight="8"/>
+		<edge source="K" target="I" weight="8"/>
+		<edge source="I" target="L" weight="4"/>
+		<edge source="L" target="I" weight="4"/>
+		<edge source="J" target="K" weight="6"/>
+		<edge source="K" target="J" weight="6"/>
+		<edge source="J" target="N" weight="5"/>
+		<edge source="N" target="J" weight="5"/>
+		<edge source="K" target="L" weight="2"/>
+		<edge source="L" target="K" weight="2"/>
+		<edge source="K" target="M" weight="3"/>
+		<edge source="M" target="K" weight="3"/>
+		<edge source="K" target="N" weight="3"/>
+		<edge source="N" target="K" weight="3"/>
+		<edge source="L" target="M" weight="4"/>
+		<edge source="M" target="L" weight="4"/>
+		<edge source="M" target="N" weight="4"/>
+		<edge source="N" target="M" weight="4"/>
+	</graph>
+</root>

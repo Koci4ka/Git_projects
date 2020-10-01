@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+	<algorithm type="BFS"/> <!-- Возможные значения 1)dijkstra 2)bfs 3)astar-->
+	<task start.i="1" start.j="3" goal.i="5" goal.j="5"/> <!-- если тип графа - грид, то для старта и финиша необходимо задать координаты i,j-->
+	<graph type="grid" width="6" height="6" connectedness="8">
+		<row>0 0 0 0 0 0</row>
+		<row>0 0 0 0 0 0</row>
+		<row>0 0 0 0 0 0</row>
+		<row>0 0 1 1 0 0</row>
+		<row>0 0 0 0 0 0</row>
+		<row>0 0 0 0 0 0</row>
+	</graph>
+</root>
