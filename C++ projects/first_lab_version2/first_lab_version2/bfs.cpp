@@ -30,8 +30,9 @@
     return std::list<Node>();
 }*/
 
-std::list<Node> BFS::find_path(Graph graph, Node start, Node goal)
+Result BFS::find_path(Graph graph, Node start, Node goal)
 {
+    Result res;
     std::queue<Node> open;
     start.g = 0;
     start.parent = nullptr;
@@ -46,7 +47,8 @@ std::list<Node> BFS::find_path(Graph graph, Node start, Node goal)
         {
             std::list<Node> path = reconstruct_path(current);
             write(graph);
-            return path;
+            res.path = path; //не использовать копирование, возможно улучшение?
+            return res;
         }
         for (Node neighbor : neighbors)
         {
@@ -59,7 +61,8 @@ std::list<Node> BFS::find_path(Graph graph, Node start, Node goal)
 
         }
     }
-    return std::list<Node>();
+    res.path = std::list<Node>();
+    return res; 
 }
 
 

@@ -12,7 +12,6 @@ public:
     Result result;
 protected:
     std::list<Node> reconstruct_path(Node goal); //восстанавливает путь
-    bool visited(Node node);
     Node get_min(); //находит элемент с минимальным g-значением
     void pop_open(); //удаляет элемент из open
     bool in_closed(Node node); //проверяет наличие вершины в списке CLOSED

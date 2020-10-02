@@ -12,11 +12,6 @@ std::list<Node> Planner::reconstruct_path(Node node)
     return std::list<Node>();
 }
 
-bool Planner::visited(Node node)
-{
-    std::cout << "Checking node in visit\n";
-    return true;
-}
 
 Node Planner::get_min()
 {

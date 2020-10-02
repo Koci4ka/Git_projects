@@ -8,7 +8,7 @@
 
 class BFS : public Planner
 {
-    std::list<Node> find_path(Graph graph, Node start, Node goal);
+    Result find_path(Graph graph, Node start, Node goal);
     Node get_min();
     Node visited();
     void write(Graph graph);

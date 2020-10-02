@@ -1,6 +1,6 @@
 #ifndef RESULT_H
 #define RESULT_H
-#include <structs.h>
+#include "structs.h"
 #include <list>
 
 

@@ -4,14 +4,16 @@
 
 struct Node
 {
-    Node(int _id = -1, Node* _parent = nullptr, int _i = -1, int _j = -1) :id(_id), parent(_parent), i(_i), j(_j) { g = 0; }
+    Node(int _id = -1, Node* _parent = nullptr, int _i = -1, int _j = -1, bool _visited = false) :id(_id), parent(_parent), i(_i), j(_j), visited(_visited) { g = INFINITY; }
     int id;
     float g;
-    //float f;
+    float f;
+    float h;
     Node* parent;
-    //дополнительные атрибуты, описывающие состояние
     int i;
     int j;
+    bool visited;
+
 };
 
 struct Result

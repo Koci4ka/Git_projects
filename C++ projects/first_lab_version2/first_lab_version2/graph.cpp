@@ -46,9 +46,9 @@ bool Graph::load_graph(const char* fileName)
         int grid_i(0), grid_j(0);
         element = root->FirstChildElement();
         grid.resize(height);
-        for (int i = 0; i < height; i++)
+        for (int i = 0; i < width; i++)
             grid[i].resize(width, 0);
-        while (grid_i < height)
+        while (grid_i < width)
         {
             if (!element)
             {
@@ -64,7 +64,7 @@ bool Graph::load_graph(const char* fileName)
             grid_j = 0;
             int val;
             if (elems.size() > 0)
-                for (grid_j = 0; grid_j < width; ++grid_j)
+                for (grid_j = 0; grid_j < height; ++grid_j)
                 {
                     if (grid_j == int(elems.size()))
                         break;
@@ -75,7 +75,7 @@ bool Graph::load_graph(const char* fileName)
                     grid[grid_i][grid_j] = val;
                 }
 
-            if (grid_j != width)
+            if (grid_j != height)
             {
                 std::cout << "Invalid value in the " << grid_i + 1 << " row." << std::endl;
                 return false;

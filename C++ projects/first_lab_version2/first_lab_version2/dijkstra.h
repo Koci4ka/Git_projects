@@ -10,7 +10,7 @@
 
 class Dijkstra : public Planner
 {
-    std::list<Node> find_path(Graph graph, Node start, Node goal);
+    Result find_path(Graph graph, Node start, Node goal);
     Node get_min();
     void write(Graph graph);
     void pop_open();

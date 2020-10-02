@@ -1,7 +1,8 @@
 #include "dijkstra.h"
 
-std::list<Node> Dijkstra::find_path(Graph graph, Node start, Node goal)
+Result Dijkstra::find_path(Graph graph, Node start, Node goal)
 {
+	Result res;
 	std::priority_queue< std::pair<int, Node>, std::vector< std::pair<int, Node> >, CustomCompare > open;
 	start.g = 0;
 	start.parent = nullptr;
@@ -26,9 +27,11 @@ std::list<Node> Dijkstra::find_path(Graph graph, Node start, Node goal)
 	{
 		std::list<Node> path = reconstruct_path(goal);
 		write(graph);
-		return path;
+		res.path = path;
+		return res;
 	}
-	return std::list<Node>();
+	res.path = std::list<Node>();
+	return res;
 }
 
 
