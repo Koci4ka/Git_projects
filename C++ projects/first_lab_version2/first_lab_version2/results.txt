@@ -1,1 +1,2 @@
-Task 0: Cost 4.82843 Expanded nodes 7 Generated nodes 18 Runtime 0.0057458
+Task 0: Cost 4.82843 Expanded nodes 8 Generated nodes 19 Runtime 0.0003925
+Task 1: Cost 30.2426 Expanded nodes 98 Generated nodes 151 Runtime 0.0314592

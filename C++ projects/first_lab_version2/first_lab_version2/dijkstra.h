@@ -15,7 +15,7 @@ class Dijkstra : public Planner
 
     struct CustomCompare
     {
-        bool operator()(const std::pair<int, Node*>& lhs, const std::pair<int, Node*>& rhs)
+        bool operator()(const std::pair<float, Node*>& lhs, const std::pair<float, Node*>& rhs)
         {
             return lhs.first > rhs.first;
         }

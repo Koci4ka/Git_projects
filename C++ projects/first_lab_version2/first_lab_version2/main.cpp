@@ -41,7 +41,7 @@ int main(int argc, const char* argv[])
     else //run the competition
     {
         std::ofstream out("results.txt");
-        for (int i = 0; i < 2; i++)
+        for (int i = 0; i < 3; i++)
         {
             fileName = "competition/task" + std::to_string(i) + ".xml";
             Input input;
@@ -49,7 +49,7 @@ int main(int argc, const char* argv[])
             Planner* planner;
             if (input.algorithm_type == CN_BFS)
                 planner = new BFS();
-            else if(input.algorithm_type == CN_DIJKSTRA)
+            else if (input.algorithm_type == CN_DIJKSTRA)
                 planner = new Dijkstra();
             else
                 planner = new AStar();

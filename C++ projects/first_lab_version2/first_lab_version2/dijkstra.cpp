@@ -5,7 +5,7 @@ Result Dijkstra::find_path(Graph graph, Node start, Node goal)
 	int closed_count = 0;
 	std::unordered_map<int, Node*> nodes;
 	std::unordered_map<int, Node*>::const_iterator it;
-	std::priority_queue< std::pair<int, Node*>, std::vector< std::pair<int, Node*> >, CustomCompare > open;
+	std::priority_queue< std::pair<float, Node*>, std::vector< std::pair<float, Node*> >, CustomCompare > open;
 	Node* neighborPtr = new Node();
 	neighborPtr->id = start.id;
 	neighborPtr->i = start.i;
@@ -13,12 +13,12 @@ Result Dijkstra::find_path(Graph graph, Node start, Node goal)
 	neighborPtr->g = 0;
 	neighborPtr->parent = nullptr;
 	neighborPtr->inOpened = true;
-	open.push(std::make_pair(0, neighborPtr));
+	open.push(std::make_pair(0.0, neighborPtr));
 	nodes[start.id] = neighborPtr;
 
 	while (!open.empty())
 	{
-		std::pair<int, Node*> current = open.top();
+		std::pair<float, Node*> current = open.top();
 		open.pop();
 		current.second->inOpened = false;
 		if (!current.second->inClosed)

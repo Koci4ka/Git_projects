@@ -46,9 +46,9 @@ bool Graph::load_graph(const char* fileName)
         int grid_i(0), grid_j(0);
         element = root->FirstChildElement();
         grid.resize(height);
-        for (int i = 0; i < width; i++)
+        for (int i = 0; i < height; i++)
             grid[i].resize(width, 0);
-        while (grid_i < width)
+        while (grid_i < height)
         {
             if (!element)
             {
@@ -64,7 +64,7 @@ bool Graph::load_graph(const char* fileName)
             grid_j = 0;
             int val;
             if (elems.size() > 0)
-                for (grid_j = 0; grid_j < height; ++grid_j)
+                for (grid_j = 0; grid_j < width; ++grid_j)
                 {
                     if (grid_j == int(elems.size()))
                         break;
@@ -75,7 +75,7 @@ bool Graph::load_graph(const char* fileName)
                     grid[grid_i][grid_j] = val;
                 }
 
-            if (grid_j != height)
+            if (grid_j != width)
             {
                 std::cout << "Invalid value in the " << grid_i + 1 << " row." << std::endl;
                 return false;
@@ -136,18 +136,18 @@ std::list<Node> Graph::get_neighbors(Node current)
                 neighbors.push_back(Node(current.i * width + current.j + 1, nullptr, current.i, current.j + 1));
         if (connectedness == 8)
         {
-        if (current.i > 0 && current.j > 0)
-            if (grid[current.i - 1][current.j - 1] == 0)
-            neighbors.push_back(Node((current.i - 1) * width + current.j - 1, nullptr, current.i - 1, current.j - 1));
-        if (current.i + 1 < width && current.j > 0)
-            if (grid[current.i + 1][current.j - 1] == 0)
-            neighbors.push_back(Node((current.i + 1) * width + current.j - 1, nullptr, current.i + 1, current.j - 1));
-        if (current.i > 0 && current.j + 1 < height)
-            if (grid[current.i - 1][current.j + 1] == 0)
-            neighbors.push_back(Node((current.i - 1) * width + current.j + 1, nullptr, current.i - 1, current.j + 1));
-        if (current.i + 1 < width && current.j + 1 < height)
-            if (grid[current.i + 1][current.j + 1] == 0)
-            neighbors.push_back(Node((current.i + 1) * width + current.j + 1, nullptr, current.i + 1, current.j + 1));
+            if (current.i > 0 && current.j > 0 && ((grid[current.i - 1][current.j] == 0) && (grid[current.i][current.j - 1] == 0)))
+                if (grid[current.i - 1][current.j - 1] == 0)
+                    neighbors.push_back(Node((current.i - 1) * width + current.j - 1, nullptr, current.i - 1, current.j - 1));
+            if (current.i + 1 < width && current.j > 0 && ((grid[current.i + 1][current.j] == 0) && (grid[current.i][current.j - 1] == 0)))
+                if (grid[current.i + 1][current.j - 1] == 0)
+                    neighbors.push_back(Node((current.i + 1) * width + current.j - 1, nullptr, current.i + 1, current.j - 1));
+            if (current.i > 0 && current.j + 1 < height && ((grid[current.i - 1][current.j] == 0) && (grid[current.i][current.j + 1] == 0)))
+                if (grid[current.i - 1][current.j + 1] == 0)
+                    neighbors.push_back(Node((current.i - 1) * width + current.j + 1, nullptr, current.i - 1, current.j + 1));
+            if (current.i + 1 < width && current.j + 1 < height && ((grid[current.i + 1][current.j] == 0) && (grid[current.i][current.j + 1] == 0)))
+                if (grid[current.i + 1][current.j + 1] == 0)
+                    neighbors.push_back(Node((current.i + 1) * width + current.j + 1, nullptr, current.i + 1, current.j + 1));
         }
     }
     else
