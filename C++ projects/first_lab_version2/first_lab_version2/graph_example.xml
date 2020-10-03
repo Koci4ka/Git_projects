@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <root>
-	<algorithm type="bfs"/> <!-- Возможные значения 1)dijkstra 2)bfs 3)astar-->
-	<task start.id="A" goal.id="L"/>
-	<graph type="general">
+	<algorithm type = "bfs"/> <!-- Возможные значения 1)dijkstra 2)bfs 3)astar-->
+	<task start.id = "A" goal.id = "L"/>
+	<graph type = "general">
 		<node id="A"/>
 		<node id="B"/>
 		<node id="C"/>

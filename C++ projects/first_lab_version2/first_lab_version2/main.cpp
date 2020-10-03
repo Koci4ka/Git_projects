@@ -13,8 +13,8 @@ int main(int argc, const char* argv[])
     if (argc > 1)
         fileName = argv[1];
     else
-        fileName = "graph_example.xml";
-    if (argc < 3) // no additional parameters - run the planner in a single-shot mode
+        fileName = "grid_example.xml";
+    if (argc > 3) // no additional parameters - run the planner in a single-shot mode
     {
         Input input;
         if (!input.load(fileName.c_str()))
@@ -41,7 +41,7 @@ int main(int argc, const char* argv[])
     else //run the competition
     {
         std::ofstream out("results.txt");
-        for (int i = 0; i < 3; i++)
+        for (int i = 0; i < 2; i++)
         {
             fileName = "competition/task" + std::to_string(i) + ".xml";
             Input input;
@@ -49,10 +49,10 @@ int main(int argc, const char* argv[])
             Planner* planner;
             if (input.algorithm_type == CN_BFS)
                 planner = new BFS();
-            else //if(input.algorithm_type == CN_DIJKSTRA)
+            else if(input.algorithm_type == CN_DIJKSTRA)
                 planner = new Dijkstra();
-            //else
-            //    planner = new AStar();
+            else
+                planner = new AStar();
             std::chrono::time_point<std::chrono::system_clock> start, end;
             start = std::chrono::system_clock::now();
             Result result = planner->find_path(input.graph, input.start, input.goal);

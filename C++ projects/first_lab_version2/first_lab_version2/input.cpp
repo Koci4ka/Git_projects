@@ -97,11 +97,11 @@ void Input::print()
         std::cout << "Algorithm - BFS" << std::endl;
     if (algorithm_type == CN_DIJKSTRA)
         std::cout << "Algorithm - Dijkstra" << std::endl;
-    if (algorithm_type == CN_BFS)
+    if (algorithm_type == CN_ASTAR)
         std::cout << "Algorithm - AStar" << std::endl;
     if (start.i >= 0)
-        std::cout << "start.i=" << start.i << " start.j=" << start.j << std::endl << "goal.i=" << goal.i << " goal.j=" << goal.j << std::endl;
+        std::cout << "start.i = " << start.i << " start.j =" << start.j << std::endl << "goal.i = " << goal.i << " goal.j = " << goal.j << std::endl;
     else
-        std::cout << "start.id=" << graph.get_name_by_id(start.id) << std::endl << "goal.id=" << graph.get_name_by_id(goal.id) << std::endl;
+        std::cout << "start.id = " << graph.get_name_by_id(start.id) << std::endl << "goal.id = " << graph.get_name_by_id(goal.id) << std::endl;
     graph.print();
 }

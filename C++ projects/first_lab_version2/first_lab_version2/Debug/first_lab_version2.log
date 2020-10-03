@@ -1,34 +1,8 @@
-﻿  bfs.cpp
-  dijkstra.cpp
-C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.26.28801\include\utility(208,16): warning C4244: инициализация: преобразование "_Ty" в "_Ty1", возможна потеря данных
-          with
-          [
-              _Ty=float
-          ]
-          and
-          [
-              _Ty1=int
-          ]
-C:\Users\Asus\Documents\Git_projects\C++ projects\first_lab_version2\first_lab_version2\dijkstra.cpp(22): message : выполняется компиляция ссылки на экземпляр шаблон функции "std::pair<_Kty,_Ty>::pair<float,Node,0>(std::pair<float,Node> &&) noexcept"
-          with
-          [
-              _Kty=int,
-              _Ty=Node
-          ]
-C:\Users\Asus\Documents\Git_projects\C++ projects\first_lab_version2\first_lab_version2\dijkstra.cpp(22): message : выполняется компиляция ссылки на экземпляр шаблон функции "std::pair<_Kty,_Ty>::pair<float,Node,0>(std::pair<float,Node> &&) noexcept"
-          with
-          [
-              _Kty=int,
-              _Ty=Node
-          ]
-  graph.cpp
+﻿  graph.cpp
 C:\Users\Asus\Documents\Git_projects\C++ projects\first_lab_version2\first_lab_version2\graph.cpp(97,27): warning C4018: <: несоответствие типов со знаком и без знака
 C:\Users\Asus\Documents\Git_projects\C++ projects\first_lab_version2\first_lab_version2\graph.cpp(99,31): warning C4018: <: несоответствие типов со знаком и без знака
 C:\Users\Asus\Documents\Git_projects\C++ projects\first_lab_version2\first_lab_version2\graph.cpp(107,27): warning C4018: <: несоответствие типов со знаком и без знака
-C:\Users\Asus\Documents\Git_projects\C++ projects\first_lab_version2\first_lab_version2\graph.cpp(165,24): warning C4244: return: преобразование "double" в "float", возможна потеря данных
-C:\Users\Asus\Documents\Git_projects\C++ projects\first_lab_version2\first_lab_version2\graph.cpp(180,23): warning C4018: <: несоответствие типов со знаком и без знака
-C:\Users\Asus\Documents\Git_projects\C++ projects\first_lab_version2\first_lab_version2\graph.cpp(188,22): warning C4018: >: несоответствие типов со знаком и без знака
-  main.cpp
-C:\Users\Asus\Documents\Git_projects\C++ projects\first_lab_version2\first_lab_version2\main.cpp(60,125): warning C4244: =: преобразование "double" в "float", возможна потеря данных
-  Создание кода...
+C:\Users\Asus\Documents\Git_projects\C++ projects\first_lab_version2\first_lab_version2\graph.cpp(176,24): warning C4244: return: преобразование "double" в "float", возможна потеря данных
+C:\Users\Asus\Documents\Git_projects\C++ projects\first_lab_version2\first_lab_version2\graph.cpp(191,23): warning C4018: <: несоответствие типов со знаком и без знака
+C:\Users\Asus\Documents\Git_projects\C++ projects\first_lab_version2\first_lab_version2\graph.cpp(199,22): warning C4018: >: несоответствие типов со знаком и без знака
   first_lab_version2.vcxproj -> C:\Users\Asus\Documents\Git_projects\C++ projects\first_lab_version2\Debug\first_lab_version2.exe

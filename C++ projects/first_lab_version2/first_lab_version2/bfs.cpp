@@ -1,107 +1,80 @@
 #include "bfs.h"
 
-/*std::list<Node> BFS::find_path(Graph graph, Node start, Node goal)
-{
-    start.g = 0;
-    start.parent = nullptr;
-    insert_into_open(start);
-    while (!open.empty())
-    {
-        Node current = get_min();
-        pop_open();
-        insert_into_closed(current);
-        std::list<Node> neighbors = graph.get_neighbors(current);
-        if (current.id == goal.id)
-        {
-            std::list<Node> path = reconstruct_path(current);
-            write(graph);
-            return path;
-        }
-        for (Node neighbor : neighbors)
-        {
-            if (in_closed(neighbor) || in_open(neighbor))
-                continue;
-            neighbor.g = current.g + 1;
-            neighbor.parent = &closed.find(current.id)->second;
-            insert_into_open(neighbor);
-
-        }
-    }
-    return std::list<Node>();
-}*/
-
 Result BFS::find_path(Graph graph, Node start, Node goal)
 {
-    Result res;
-    std::queue<Node> open;
-    start.g = 0;
-    start.parent = nullptr;
-    start.visited = true;
-    open.push(start);
-    while (!open.empty())
-    {
-        Node current = open.front();
-        open.pop();
-        std::list<Node> neighbors = graph.get_neighbors(current);
-        if (current.id == goal.id)
-        {
-            std::list<Node> path = reconstruct_path(current);
-            write(graph);
-            res.path = path; //не использовать копирование, возможно улучшение?
-            return res;
-        }
-        for (Node neighbor : neighbors)
-        {
-            if (neighbor.visited)
-                continue;
-            neighbor.visited = true;
-            neighbor.g = current.g + 1;
-            neighbor.parent = &current;
-            open.push(neighbor);
-
-        }
-    }
-    res.path = std::list<Node>();
-    return res; 
+	int closed_count = 0;
+	std::unordered_map<int, Node*> nodes;
+	std::unordered_map<int, Node*>::const_iterator it;
+	std::queue<Node*> open;
+	Node* neighborPtr = new Node();
+	neighborPtr->id = start.id;
+	neighborPtr->i = start.i;
+	neighborPtr->j = start.j;
+	neighborPtr->g = 0;
+	neighborPtr->parent = nullptr;
+	neighborPtr->inOpened = true;
+	open.push(neighborPtr);
+	nodes[start.id] = neighborPtr;
+	while (!open.empty())
+	{
+		Node* current = open.front();
+		open.pop();
+		current->inOpened = false;
+		current->inClosed = true;
+		closed_count++;
+		std::list<Node> neighbors = graph.get_neighbors(*current);
+		if (current->id == goal.id)
+		{
+			Result res = reconstruct_path(*nodes[goal.id]);
+			res.expanded = closed_count;
+			res.generated = nodes.size();
+			res.cost = nodes[goal.id]->g;
+			nodes.clear();
+			return res;
+		}
+		for (Node neighbor : neighbors)
+		{
+			it = nodes.find(neighbor.id);
+			if (it == nodes.end())
+			{
+				neighborPtr = new Node();
+				neighborPtr->id = neighbor.id;
+				neighborPtr->i = neighbor.i;
+				neighborPtr->j = neighbor.j;
+			}
+			else
+			{
+				neighborPtr = it->second;
+			}
+			if (neighborPtr->inOpened || neighborPtr->inClosed)
+				continue;
+			neighborPtr->inOpened = true;
+			neighborPtr->g = current->g + 1;
+			neighborPtr->parent = current;
+			nodes[neighbor.id] = neighborPtr;
+			open.push(neighborPtr);
+		}
+	}
+	nodes.clear();
+	Result res;
+	res.expanded = closed_count;
+	res.generated = nodes.size();
+	res.cost = -1; //не найден путь 
+	res.path = std::list<Node>();
+	return res;
 }
 
 
-std::list<Node> BFS::reconstruct_path(Node goal) {
-    std::list<Node> backpath;
-    Node current = goal;
-    backpath.push_front(current);
-    Node a;
-    while (current.parent != 0) {
-        a = *current.parent;
-        backpath.push_front(a);
-        current = a;
-    }
-    return backpath;
-}
-
-void BFS::write(Graph graph) {
-    if (graph.get_commectedness() == 4 || graph.get_commectedness() == 8) {
-        std::cout << "\nOPENED n-m:";
-        for (auto n : open) {
-            std::cout << " " << n.id / 10 << "-" << n.id % 10 << " ";
-        }
-
-        std::cout << "\n" << "\nCLOSED n-m:";
-        for (auto n : closed) {
-            std::cout << " " << n.first / 10 << "-" << n.first % 10 << " ";
-        }
-        std::cout << "\n";
-    }
-    else {
-        std::cout << "\nOPENED:";
-        for (auto n : open) {
-            std::cout << " " << graph.get_name_by_id(n.id) << " ";
-        }
-
-        std::cout << "\n" << "\nCLOSED:";
-        for (auto n : closed) {
-            std::cout << " " << graph.get_name_by_id(n.first) << " ";
-        }
-        std::cout << "\n";
-    }
+Result BFS::reconstruct_path(Node goal) {
+	Result res;
+	res.path = std::list<Node>();
+	Node current = goal;
+	res.path.push_front(current);
+	Node a;
+	while (current.parent != 0) {
+		a = *current.parent;
+		res.path.push_front(a);
+		current = a;
+	}
+	return res;
 }

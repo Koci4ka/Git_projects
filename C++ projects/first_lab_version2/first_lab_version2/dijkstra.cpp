@@ -2,79 +2,93 @@
 
 Result Dijkstra::find_path(Graph graph, Node start, Node goal)
 {
-	Result res;
-	std::priority_queue< std::pair<int, Node>, std::vector< std::pair<int, Node> >, CustomCompare > open;
-	start.g = 0;
-	start.parent = nullptr;
-	open.push(std::make_pair(0, start));
+	int closed_count = 0;
+	std::unordered_map<int, Node*> nodes;
+	std::unordered_map<int, Node*>::const_iterator it;
+	std::priority_queue< std::pair<int, Node*>, std::vector< std::pair<int, Node*> >, CustomCompare > open;
+	Node* neighborPtr = new Node();
+	neighborPtr->id = start.id;
+	neighborPtr->i = start.i;
+	neighborPtr->j = start.j;
+	neighborPtr->g = 0;
+	neighborPtr->parent = nullptr;
+	neighborPtr->inOpened = true;
+	open.push(std::make_pair(0, neighborPtr));
+	nodes[start.id] = neighborPtr;
+
 	while (!open.empty())
 	{
-		std::pair<int, Node> current = open.top();
+		std::pair<int, Node*> current = open.top();
 		open.pop();
-		if (current.first > current.second.g)
+		current.second->inOpened = false;
+		if (!current.second->inClosed)
+		{
+			current.second->inClosed = true;
+			closed_count++;
+		}
+
+		if (current.first > current.second->g)
 			continue;
-		std::list<Node> neighbors = graph.get_neighbors(current.second);
+
+		if (current.second->id == goal.id)
+		{
+			Result res = reconstruct_path(*nodes[goal.id]);
+			res.expanded = closed_count;
+			res.generated = nodes.size();
+			res.cost = nodes[goal.id]->g;
+			nodes.clear();
+			return res;
+		}
+		std::list<Node> neighbors = graph.get_neighbors(*(current.second));
 		for (Node neighbor : neighbors)
 		{
-			if (neighbor.g > current.second.g + graph.get_cost(neighbor.id, current.second.id)) {
-				neighbor.g = current.second.g + graph.get_cost(neighbor.id, current.second.id);
-				neighbor.parent = &current.second;
-				open.push(std::make_pair(neighbor.g, neighbor));
+			it = nodes.find(neighbor.id);
+			if (it == nodes.end())
+			{
+				neighborPtr = new Node();
+				neighborPtr->id = neighbor.id;
+				neighborPtr->i = neighbor.i;
+				neighborPtr->j = neighbor.j;
+			}
+			else
+			{
+				neighborPtr = it->second;
+			}
+
+			if (neighborPtr->inClosed)
+				continue;
+
+			float coast = graph.get_cost(neighbor.id, current.second->id);
+			if (neighborPtr->g > current.second->g + coast)
+			{
+				neighborPtr->g = current.second->g + coast;
+				neighborPtr->parent = current.second;
+				neighborPtr->inOpened = true;
+				nodes[neighbor.id] = neighborPtr;
+				open.push(std::make_pair(neighborPtr->g, neighborPtr));
 			}
 		}
 	}
-	if (goal.visited)
-	{
-		std::list<Node> path = reconstruct_path(goal);
-		write(graph);
-		res.path = path;
-		return res;
-	}
+	nodes.clear();
+	Result res;
+	res.expanded = closed_count;
+	res.generated = nodes.size();
+	res.cost = -1;
 	res.path = std::list<Node>();
 	return res;
 }
 
 
-std::list<Node> Dijkstra::reconstruct_path(Node goal) {
-	std::list<Node> backpath;
+Result Dijkstra::reconstruct_path(Node goal) {
+	Result res;
+	res.path = std::list<Node>();
 	Node current = goal;
-	backpath.push_front(current);
+	res.path.push_front(current);
 	Node a;
-
 	while (current.parent != 0) {
 		a = *current.parent;
-		backpath.push_front(a);
+		res.path.push_front(a);
 		current = a;
 	}
-
-	return backpath;
+	return res;
 }
-
-void Dijkstra::write(Graph graph) {
-	if (graph.get_commectedness() == 4 || graph.get_commectedness() == 8) {
-		std::cout << "\nOPENED n-m:";
-		for (auto n : open) {
-			std::cout << " " << n.id / 10 << "-" << n.id % 10 << " ";
-		}
-
-		std::cout << "\n" << "\nCLOSED n-m:";
-		for (auto n : closed) {
-			std::cout << " " << n.first / 10 << "-" << n.first % 10 << " ";
-		}
-		std::cout << "\n";
-	}
-	else {
-		std::cout << "\nOPENED:";
-		for (auto n : open) {
-			std::cout << " " << graph.get_name_by_id(n.id) << " ";
-		}
-
-		std::cout << "\n" << "\nCLOSED:";
-		for (auto n : closed) {
-			std::cout << " " << graph.get_name_by_id(n.first) << " ";
-		}
-		std::cout << "\n";
-	}
-}
-
-

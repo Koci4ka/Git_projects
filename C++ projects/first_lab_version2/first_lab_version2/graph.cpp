@@ -136,7 +136,18 @@ std::list<Node> Graph::get_neighbors(Node current)
                 neighbors.push_back(Node(current.i * width + current.j + 1, nullptr, current.i, current.j + 1));
         if (connectedness == 8)
         {
-            //нужно добавить еще 4 вершины (смежные по диагонали)
+        if (current.i > 0 && current.j > 0)
+            if (grid[current.i - 1][current.j - 1] == 0)
+            neighbors.push_back(Node((current.i - 1) * width + current.j - 1, nullptr, current.i - 1, current.j - 1));
+        if (current.i + 1 < width && current.j > 0)
+            if (grid[current.i + 1][current.j - 1] == 0)
+            neighbors.push_back(Node((current.i + 1) * width + current.j - 1, nullptr, current.i + 1, current.j - 1));
+        if (current.i > 0 && current.j + 1 < height)
+            if (grid[current.i - 1][current.j + 1] == 0)
+            neighbors.push_back(Node((current.i - 1) * width + current.j + 1, nullptr, current.i - 1, current.j + 1));
+        if (current.i + 1 < width && current.j + 1 < height)
+            if (grid[current.i + 1][current.j + 1] == 0)
+            neighbors.push_back(Node((current.i + 1) * width + current.j + 1, nullptr, current.i + 1, current.j + 1));
         }
     }
     else

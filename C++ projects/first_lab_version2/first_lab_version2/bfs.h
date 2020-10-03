@@ -9,12 +9,7 @@
 class BFS : public Planner
 {
     Result find_path(Graph graph, Node start, Node goal);
-    Node get_min();
-    Node visited();
-    void write(Graph graph);
-    void pop_open();
-    void insert_into_open(Node node);
-    std::list<Node> reconstruct_path(Node goal);
+    Result reconstruct_path(Node goal);
 };
 
 #endif // BFS_H
