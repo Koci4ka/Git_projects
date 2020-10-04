@@ -70,10 +70,10 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <Xml Include="graph_example.xml">
+    <Xml Include="grid_example.xml">
       <Filter>Файлы ресурсов</Filter>
     </Xml>
-    <Xml Include="grid_example.xml">
+    <Xml Include="graph_example.xml">
       <Filter>Файлы ресурсов</Filter>
     </Xml>
   </ItemGroup>

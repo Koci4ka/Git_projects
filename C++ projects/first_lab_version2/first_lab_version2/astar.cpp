@@ -4,18 +4,11 @@
 Result AStar::find_path(Graph graph, Node start, Node goal)
 {
 	int closed_count = 0;
-	std::unordered_map<int, Node*> nodes;
+	float coast = 0.0;
+	std::unordered_map<int, Node*> nodes; //вершины, которые встречали
 	std::unordered_map<int, Node*>::const_iterator it;
-	std::priority_queue< std::pair<float, Node*>, std::vector< std::pair<float, Node*> >, CustomCompare > open;
-	Node* neighborPtr = new Node();
-	neighborPtr->id = start.id;
-	neighborPtr->i = start.i;
-	neighborPtr->j = start.j;
-	neighborPtr->h = h_value(start, goal, graph);
-	neighborPtr->f = start.g + start.h;
-	neighborPtr->g = 0;
-	neighborPtr->parent = nullptr;
-	neighborPtr->inOpened = true;
+	std::priority_queue< std::pair<float, Node*>, std::vector< std::pair<float, Node*> >, CustomCompare > open; //очеред с приоритетом
+	Node* neighborPtr = new Node(start.id, nullptr, start.i, start.j, true, false, 0, start.g + start.h, h_value(start, goal, graph));
 	open.push(std::make_pair(0.0, neighborPtr));
 	nodes[start.id] = neighborPtr;
 	while (!open.empty())
@@ -23,7 +16,6 @@ Result AStar::find_path(Graph graph, Node start, Node goal)
 		std::pair<float, Node*> current = open.top();
 		open.pop();
 
-		//std::cout << current.first <<  " " << closed_count << std::endl;
 		current.second->inOpened = false;
 		if (!current.second->inClosed)
 		{
@@ -54,12 +46,7 @@ Result AStar::find_path(Graph graph, Node start, Node goal)
 			it = nodes.find(neighbor.id);
 			if (it == nodes.end())
 			{
-				neighborPtr = new Node();
-				neighborPtr->id = neighbor.id;
-				neighborPtr->i = neighbor.i;
-				neighborPtr->j = neighbor.j;
-				neighborPtr->f = neighbor.f;
-				neighborPtr->h = neighbor.h;
+				neighborPtr = new Node(neighbor.id, nullptr, neighbor.i, neighbor.j, false, false, INFINITY, neighbor.f, neighbor.h);
 			}
 			else
 			{
@@ -69,10 +56,10 @@ Result AStar::find_path(Graph graph, Node start, Node goal)
 			if (neighborPtr->inClosed)
 				continue;
 
-			float coast = graph.get_cost(neighbor.id, current.second->id);
-			if (neighborPtr->g > current.second->g + coast)
+			coast = current.second->g + graph.get_cost(neighbor.id, current.second->id);
+			if (neighborPtr->g > coast)
 			{
-				neighborPtr->g = current.second->g + coast;
+				neighborPtr->g = coast;
 				neighborPtr->h = h_value(*neighborPtr, goal, graph);
 				neighborPtr->f = neighborPtr->g + neighborPtr->h;
 				neighborPtr->parent = current.second;
