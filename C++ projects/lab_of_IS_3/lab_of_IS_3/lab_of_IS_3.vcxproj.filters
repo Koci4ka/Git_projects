@@ -37,10 +37,10 @@
     <Text Include="train_data.txt">
       <Filter>Файлы ресурсов</Filter>
     </Text>
-    <Text Include="test_data.txt">
+    <Text Include="result.txt">
       <Filter>Файлы ресурсов</Filter>
     </Text>
-    <Text Include="result.txt">
+    <Text Include="test_data.txt">
       <Filter>Файлы ресурсов</Filter>
     </Text>
   </ItemGroup>
